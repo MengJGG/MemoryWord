@@ -1,0 +1,163 @@
+:root {
+  /* 颜色变量 - 从Figma提取 */
+  --color-theme-dark: #454242;        /* fill_HCAVW3 暗色背景 */
+  --color-white: #FFFFFF;       /* fill_G7MVXN 白色 */
+  --color-theme-light: #F9F9F9;       /* fill_WS81KH 浅色背景 */
+  --color-text-light: #F5F5F5;  /* fill_RPAVN0 浅色文本 */
+  --color-text-lightblue: #91ECFF;
+  --color-text-orange: #FF7F50;
+  --color-background-dark: #333333;   /* fill_JWUP4C 深灰色 */
+  --color-text-dark: #050505;   /* fill_390MQ9 深色文本 */
+  --color-input-bg: #F3F3F3;    /* fill_3T0GOD 输入框背景 */
+  --color-input-text: #151515;  /* fill_NZRIQ7 输入框文本 */
+  --color-theme-gray: #464850; /* fill_HJCFYZ 暗色选项背景 */
+  --color-theme-lightgreen: #DAF4E8;  
+  --color-background-green: #19BB3F;       /* fill_XC8AEH 绿色按钮 */
+  --color-background-red: #F63232;         /* fill_PW8ZKE 红色按钮 */
+  --color-button-yellow: #E3BC8A;
+  --color-stat-text: rgba(209, 208, 208, 0.7); /* fill_62DE84 统计文本 */
+  
+  /* 阴影效果 */
+  --shadow-normal: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);           /* effect_NWR5VF */
+  --shadow-large: 0px 0px 10px 10px rgba(0, 0, 0, 0.25);          /* effect_SC3KHB */
+  --shadow-inset: inset 0px 0px 4px 2px rgba(0, 0, 0, 0.25);      /* effect_WN2NF4 */
+  --shadow-inset-light: inset 0px 0px 4px 1px rgba(0, 0, 0, 0.25); /* effect_9HQJT3 */
+  --shadow-medium: 0px 0px 10px 0px rgba(0, 0, 0, 0.7);           /* effect_CQ3GZV */
+  --shadow-small: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);             /* effect_D7E94Q */
+  --shadow-box: 5px 5px 5px 5px rgba(0, 0, 0, 0.25);              /* effect_ONU8OF */
+
+  /* 边框圆角 */
+  --border-radius-small: 5px;
+  --border-radius-medium: 15px;
+  --border-radius-large: 20px;
+  --border-radius-xl: 30px;
+  --border-radius-circle: 50px;
+
+  /* 字体样式 */
+  --font-family-main: 'PingFang SC', sans-serif;
+  --font-family-secondary: 'Inter', sans-serif;
+  
+  /* 主要字体大小 */
+  --font-size-small: 14px;
+  --font-size-medium: 20px;
+  --font-size-large: 23px;
+  --font-size-xl: 45px;
+  --font-size-xxl: 50px;
+
+  /* 字体粗细 */
+  --font-weight-normal: 400;
+  --font-weight-bold: 600;
+  --font-weight-extra-bold: 700;
+
+  /* 间距 */
+  --spacing-xs: 5px;
+  --spacing-small: 10px;
+  --spacing-medium: 20px;
+  --spacing-large: 30px;
+  --spacing-xl: 50px;
+}
+
+/* 暗色主题 */
+.theme-dark {
+  --bg-primary: var(--color-theme-dark);
+  --bg-secondary: var(--color-theme-dark);
+  --text-primary: var(--color-text-dark);
+  --icon-color: var(--color-text-dark);
+  --option-bg: var(--color-theme-dark);
+}
+
+/* 亮色主题 */
+.theme-light {
+  --bg-primary: var(--color-theme-lightgreen);
+  --bg-secondary: var(--color-theme-lightgreen);
+  --text-primary: var(--color-text-dark);
+  --icon-color: var(--color-text-dark);
+  --option-bg: var(--color-theme-lightgreen);
+}
+
+/* 基础样式重置 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.4;
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-medium);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 实用类 */
+.shadow-normal {
+  box-shadow: var(--shadow-normal);
+}
+
+.shadow-large {
+  box-shadow: var(--shadow-large);
+}
+
+.shadow-inset {
+  box-shadow: var(--shadow-inset);
+}
+
+.shadow-medium {
+  box-shadow: var(--shadow-medium);
+}
+
+.btn {
+  border-radius: var(--border-radius-small);
+  padding: 10px 20px;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-normal);
+}
+
+.btn-primary {
+  background-color: var(--color-dark-gray);
+  color: var(--color-text-light);
+}
+
+.btn-success {
+  background-color: var(--color-green);
+  color: var(--color-text-light);
+}
+
+.btn-danger {
+  background-color: var(--color-red);
+  color: var(--color-text-light);
+}
+
+.btn-light {
+  background-color: var(--color-light);
+  color: var(--color-text-dark);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-small);
+  padding: 58px 31px;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-large);
+}
+
+.card {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-large);
+  padding: var(--spacing-large);
+  box-shadow: var(--shadow-normal);
+}
