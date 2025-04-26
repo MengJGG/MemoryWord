@@ -72,4 +72,8 @@ const props = withDefaults(defineProps<Props>(), {
   height: 24px;
   z-index: 1;
 }
+
+img {
+  user-select: none;
+}
 </style>

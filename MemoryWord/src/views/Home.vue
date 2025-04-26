@@ -1,11 +1,5 @@
 <template>
   <div class="home-container" :class="{ 'light-mode': appTheme === 'light' }">
-    <div class="top-section">
-      <TopFuncBar 
-        :type="appTheme === 'light' ? 'light' : 'dark'" 
-        @action="handleFunctionAction"
-      />
-    </div>
     <div class="content-section">
       <h1 class="welcome-title">Welcome to Memory Word</h1>
       <!-- 导航栏和词书栏组件 -->
@@ -19,7 +13,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import TopFuncBar from '../components/top-func-bar/top-func-bar.vue';
 import NavBar from '@/components/nav-bar/nav-bar.vue';
 import BookBar from '@/components/book-bar/book-bar.vue';
 
@@ -71,7 +64,7 @@ const handleChangeBook = () => {
 
 <style scoped>
 .home-container {
-  min-height: 100vh;
+  max-height: 80vh;
   background-color: var(--color-background-dark);
   color: var(--color-text-light);
   transition: all 0.3s ease;
@@ -87,11 +80,6 @@ const handleChangeBook = () => {
   color: var(--color-text-dark);
 }
 
-.top-section {
-  padding: 10px;
-  width: 100%;
-}
-
 .content-section {
   flex: 1;
   padding: 20px;
@@ -103,7 +91,7 @@ const handleChangeBook = () => {
 
 .welcome-title {
   font-family: var(--font-family-main);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-xxl);
   font-weight: var(--font-weight-bold);
   margin-bottom: 30px;
   text-align: center;
@@ -115,4 +103,6 @@ const handleChangeBook = () => {
   justify-content: center;
   margin-top: 20px;
 }
+
+
 </style>
