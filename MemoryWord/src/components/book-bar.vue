@@ -8,7 +8,7 @@
       <span class="book-title">当前词书：{{ bookName }}</span>
     </div>
     <div class="book-change-icon" @click="handleChangeBook">
-      <img :src="theme === 'light' ? AddIconDark : AddIconLight" class="book-icon" alt="导航图标" />
+        <img :src="theme === 'light' ? AddIconDark : AddIconLight" class="book-icon" alt="导航图标" />
     </div>
   </div>
 </template>

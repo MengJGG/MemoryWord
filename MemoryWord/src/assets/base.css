@@ -1,21 +1,27 @@
 :root {
   /* 颜色变量 - 从Figma提取 */
-  --color-theme-dark: #454242;        /* fill_HCAVW3 暗色背景 */
-  --color-white: #FFFFFF;       /* fill_G7MVXN 白色 */
-  --color-theme-light: #F9F9F9;       /* fill_WS81KH 浅色背景 */
-  --color-text-light: #F5F5F5;  /* fill_RPAVN0 浅色文本 */
-  --color-text-lightblue: #91ECFF;
-  --color-text-orange: #FF7F50;
-  --color-background-dark: #333333;   /* fill_JWUP4C 深灰色 */
-  --color-text-dark: #050505;   /* fill_390MQ9 深色文本 */
-  --color-input-bg: #F3F3F3;    /* fill_3T0GOD 输入框背景 */
-  --color-input-text: #151515;  /* fill_NZRIQ7 输入框文本 */
-  --color-theme-gray: #464850; /* fill_HJCFYZ 暗色选项背景 */
-  --color-theme-lightgreen: #DAF4E8;  
-  --color-background-green: #19BB3F;       /* fill_XC8AEH 绿色按钮 */
-  --color-background-red: #F63232;         /* fill_PW8ZKE 红色按钮 */
-  --color-button-yellow: #E3BC8A;
-  --color-stat-text: rgba(209, 208, 208, 0.7); /* fill_62DE84 统计文本 */
+  /* Text Colors */
+  --color-text-light: #F5F5F5;        /* 浅色文本 */
+  --color-text-dark: #050505;         /* 深色文本 */
+  --color-text-green: #438989;        /* 绿色文本 */
+  --color-text-lightblue: #91ECFF;    /* 浅蓝色文本 */
+  --color-text-orange: #FF7F50;       /* 橙色文本 */
+  --color-input-text: #151515;        /* 输入框文本 */
+  --color-stat-text: rgba(209, 208, 208, 0.7); /* 统计文本 */
+
+  /* Theme Colors */
+  --color-theme-dark: #454242;        /* 暗色主题 */
+  --color-theme-light: #F9F9F9;       /* 浅色主题 */
+  --color-theme-gray: #464850;        /* 暗色选项背景 */
+  --color-theme-lightgreen: #DAF4E8;  /* 浅绿色主题 */
+  --color-white: #FFFFFF;             /* 白色 */
+
+  /* Background Colors */
+  --color-background-dark: #333333;    /* 深灰色背景 */
+  --color-background-green: #19BB3F;   /* 绿色按钮背景 */
+  --color-background-red: #F63232;     /* 红色按钮背景 */
+  --color-input-bg: #F3F3F3;          /* 输入框背景 */
+  --color-button-yellow: #E3BC8A;      /* 黄色按钮背景 */
   
   /* 阴影效果 */
   --shadow-normal: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);           /* effect_NWR5VF */

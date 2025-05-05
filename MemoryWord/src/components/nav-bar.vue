@@ -19,17 +19,17 @@
 <script setup lang="ts">
 import { ref, defineProps, defineEmits, computed } from 'vue';
 // 亮色主题图标
-import learnIconLight from '../icons/base/dark/learn.svg';
-import reviewIconLight from '../icons/base/dark/review.svg';
-import memoryIconLight from '../icons/base/dark/memory.svg';
-import wrongIconLight from '../icons/base/dark/wrong.svg';
-import typingIconLight from '../icons/base/dark/typing.svg';
+import learnIconLight from '@/components/icons/base/dark/learn.svg';
+import reviewIconLight from '@/components/icons/base/dark/review.svg';
+import memoryIconLight from '@/components/icons/base/dark/memory.svg';
+import wrongIconLight from '@/components/icons/base/dark/wrong.svg';
+import typingIconLight from '@/components/icons/base/dark/typing.svg';
 // 暗色主题图标
-import learnIconDark from '../icons/base/light/learn.svg';
-import reviewIconDark from '../icons/base/light/review.svg';
-import memoryIconDark from '../icons/base/light/memory.svg';
-import wrongIconDark from '../icons/base/light/wrong.svg';
-import typingIconDark from '../icons/base/light/typing.svg';
+import learnIconDark from '@/components/icons/base/light/learn.svg';
+import reviewIconDark from '@/components/icons/base/light/review.svg';
+import memoryIconDark from '@/components/icons/base/light/memory.svg';
+import wrongIconDark from '@/components/icons/base/light/wrong.svg';
+import typingIconDark from '@/components/icons/base/light/typing.svg';
 
 const props = defineProps({
   initialActive: {

@@ -2,11 +2,11 @@
   <div class="option-bar" :class="[type]">
     <!-- 标题区域：节号 -->
     <div class="section-title">
-      <img src="../components-option-icons/prev-icon-light.svg" alt="上一节" class="nav-arrow prev-arrow" v-if="type === 'dark'" @click="handlePrevSection">
-      <img src="../components-option-icons/prev-icon-dark.svg" alt="上一节" class="nav-arrow prev-arrow" v-else @click="handlePrevSection">
+      <img src="@/components/components-option-icons/prev-icon-light.svg" alt="上一节" class="nav-arrow prev-arrow" v-if="type === 'dark'" @click="handlePrevSection">
+      <img src="@/components/components-option-icons/prev-icon-dark.svg" alt="上一节" class="nav-arrow prev-arrow" v-else @click="handlePrevSection">
       <span class="section-text">第 {{ sectionNumber }} 节</span>
-      <img src="../components-option-icons/next-icon-light.svg" alt="下一节" class="nav-arrow next-arrow" v-if="type === 'dark'" @click="handleNextSection">
-      <img src="../components-option-icons/next-icon-dark.svg" alt="下一节" class="nav-arrow next-arrow" v-else @click="handleNextSection">
+      <img src="@/components/components-option-icons/next-icon-light.svg" alt="下一节" class="nav-arrow next-arrow" v-if="type === 'dark'" @click="handleNextSection">
+      <img src="@/components/components-option-icons/next-icon-dark.svg" alt="下一节" class="nav-arrow next-arrow" v-else @click="handleNextSection">
     </div>
 
     <!-- 词数统计 -->

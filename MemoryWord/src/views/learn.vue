@@ -1,15 +1,8 @@
 <template>
-  <div class="word-card" :class="{ 'light-theme': type === 'light' }">
+  <div class="word-card" :class="{ 'light-theme': currentTheme === 'light' }">
     <!-- 卡片顶部：索引和单词 -->
     <div class="card-header">
-      <div class="index-container">
-        <img 
-          :src="`@/components/icons/base/${type === 'light' ? 'light' : 'dark'}/bin.svg`" 
-          alt="索引" 
-          class="icon-index"
-        />
-        <span class="index-text">{{ currentIndex }}/{{ totalWords }}</span>
-      </div>
+      <IndexBar :currentIndex="currentIndex" :totalWords="totalWords" :currentTheme="currentTheme" />
       <h1 class="word">{{ word }}</h1>
     </div>
 
@@ -19,7 +12,7 @@
         <span class="phonetic">英{{ ukPhonetic }}</span>
         <div class="sound-icon" @click="playUkPronunciation">
           <img 
-            :src="`@/components/icons/base/${type === 'light' ? 'light' : 'dark'}/speaker.svg`" 
+            :src="`src/components/icons/base/${currentTheme === 'dark' ? 'dark' : 'light'}/speaker.svg`"
             alt="播放英式发音" 
           />
         </div>
@@ -28,7 +21,7 @@
         <span class="phonetic">美{{ usPhonetic }}</span>
         <div class="sound-icon" @click="playUsPronunciation">
           <img 
-            :src="`@/components/icons/base/${type === 'light' ? 'light' : 'dark'}/speaker.svg`" 
+            :src="`src/components/icons/base/${currentTheme === 'dark' ? 'dark' : 'light'}/speaker.svg`"
             alt="播放美式发音" 
           />
         </div>
@@ -80,14 +73,14 @@
     <div class="actions-section">
       <div class="action-button" @click="toggleFavorite">
         <img 
-          :src="`/src/components/icons/base/${type === 'light' ? 'light' : 'dark'}/favorite-icon.svg`" 
+          :src="`src/components/icons/base/${currentTheme === 'dark' ? 'light' : 'dark'}/star.svg`"
           alt="收藏" 
         />
         <span class="action-text">收藏</span>
       </div>
       <div class="action-button" @click="searchWord">
         <img 
-          :src="`/src/components/icons/base/${type === 'light' ? 'light' : 'dark'}/search-icon.svg`" 
+          :src="`src/components/icons/base/${currentTheme === 'dark' ? 'light' : 'dark'}/internet.svg`"
           alt="搜索" 
         />
         <span class="action-text">单词搜索</span>
@@ -98,6 +91,7 @@
 
 <script setup lang="ts">
 import { ref, defineProps } from 'vue';
+import IndexBar from '@/components/index-bar.vue'
 
 interface Definition {
   pos: string;       // 词性
@@ -115,7 +109,7 @@ interface Phrase {
 }
 
 interface Props {
-  type?: 'dark' | 'light';  // 主题类型
+  currentTheme?: 'dark' | 'light';  // 主题类型
   word?: string;            // 单词
   currentIndex?: number;    // 当前索引
   totalWords?: number;      // 总单词数
@@ -130,7 +124,7 @@ interface Props {
 
 // 设置默认值
 const props = withDefaults(defineProps<Props>(), {
-  type: 'dark',
+  currentTheme: 'dark',
   word: 'vocabulary',
   currentIndex: 1,
   totalWords: 25,
@@ -202,14 +196,15 @@ const searchWord = () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 35px;
-  padding: 40px 70px;
-  width: 878px;
-  border-radius: 30px;
+  gap: 24.5px;
+  padding: 28px 49px;
+  width: 615px;
+  border-radius: 21px;
   background-color: var(--color-theme-dark);
-  box-shadow: var(--shadow-normal);
+  box-shadow: var(--shadow-box);
   color: var(--color-text-light);
   transition: all 0.3s ease;
+  margin: 0 auto;
 }
 
 .light-theme {
@@ -223,31 +218,15 @@ const searchWord = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.index-container {
-  display: flex;
-  align-items: center;
   gap: 10px;
-}
-
-.icon-index {
-  width: 24px;
-  height: 24px;
-}
-
-.index-text {
-  font-family: var(--font-family-main);
-  font-size: var(--font-size-large);
-  font-weight: var(--font-weight-normal);
 }
 
 .word {
   font-family: var(--font-family-secondary);
-  font-size: var(--font-size-xl);
+  font-size: calc(var(--font-size-xl) * 0.8);
   font-weight: var(--font-weight-extra-bold);
   text-align: center;
-  margin-top: 10px;
+  margin-top: 7px;
 }
 
 .word-card .word {
@@ -255,7 +234,7 @@ const searchWord = () => {
 }
 
 .light-theme .word {
-  color: var(--color-theme-dark);
+  color: var(--color-text-green);
   opacity: 0.85;
 }
 
@@ -266,34 +245,30 @@ const searchWord = () => {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 37px;
-  padding: 9px 32px;
+  gap: 26px;
+  padding: 6px 22px;
   width: 100%;
 }
 
 .pronunciation-item {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 13px;
 }
 
 .phonetic {
   font-family: var(--font-family-main);
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 500;
 }
 
 .sound-icon {
   cursor: pointer;
-  width: 24px;
-  height: 24px;
+  width: 17px;
+  height: 17px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.sound-icon:hover {
-  opacity: 0.8;
 }
 
 /* 词义部分 */
@@ -301,29 +276,30 @@ const searchWord = () => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 10px;
+  gap: 7px;
 }
 
 .definition-item {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 5px;
-  padding: 2px 8px;
+  gap: 3.5px;
+  padding: 1.4px 5.6px;
   width: 100%;
 }
 
 .part-of-speech {
   font-family: var(--font-family-main);
-  font-size: 20px;
+  font-size: 14px;
   font-weight: var(--font-weight-bold);
   color: var(--color-text-orange);
 }
 
 .definition-text {
   font-family: var(--font-family-main);
-  font-size: 23px;
+  font-size: 19px;
   font-weight: var(--font-weight-bold);
 }
 
@@ -332,12 +308,12 @@ const searchWord = () => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 23px;
+  gap: 16px;
 }
 
 .section-title {
   font-family: var(--font-family-main);
-  font-size: 24px;
+  font-size: 17px;
   font-weight: var(--font-weight-normal);
 }
 
@@ -345,20 +321,20 @@ const searchWord = () => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 20px;
+  gap: 14px;
 }
 
 .example-item {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 0 10px;
+  gap: 8px;
+  padding: 0 7px;
   width: 100%;
 }
 
 .example-text {
   font-family: var(--font-family-secondary);
-  font-size: 24px;
+  font-size: 17px;
   font-weight: var(--font-weight-normal);
 }
 
@@ -367,7 +343,7 @@ const searchWord = () => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 12px;
+  gap: 8px;
 }
 
 .phrase-list {
@@ -375,12 +351,12 @@ const searchWord = () => {
 }
 
 .phrase-item {
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .phrase-text {
   font-family: var(--font-family-main);
-  font-size: 24px;
+  font-size: 17px;
   font-weight: var(--font-weight-normal);
 }
 
@@ -389,8 +365,8 @@ const searchWord = () => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 7px;
-  padding: 13px 0;
+  gap: 5px;
+  padding: 9px 0;
 }
 
 .similar-words-list {
@@ -398,12 +374,12 @@ const searchWord = () => {
 }
 
 .similar-word-item {
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .similar-word-text {
   font-family: var(--font-family-main);
-  font-size: 24px;
+  font-size: 17px;
   font-weight: var(--font-weight-normal);
 }
 
@@ -414,8 +390,8 @@ const searchWord = () => {
   justify-content: space-between;
   align-items: stretch;
   width: 100%;
-  gap: 5px;
-  padding: 10px;
+  gap: 3.5px;
+  padding: 7px;
 }
 
 .action-button {
@@ -423,35 +399,27 @@ const searchWord = () => {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 15px;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: var(--shadow-inset);
+  gap: 10.5px;
+  padding: 7px;
+  border-radius: 7px;
+  box-shadow: var(--shadow-normal);
   cursor: pointer;
   width: 48%;
   transition: transform 0.2s;
 }
 
-.word-card .action-button {
-  background-color: var(--color-theme-dark);
-}
-
-.light-theme .action-button {
-  background-color: var(--color-theme-light);
-}
-
 .action-button:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
 }
 
 .action-button img {
-  width: 24px;
-  height: 24px;
+  width: 17px;
+  height: 17px;
 }
 
 .action-text {
   font-family: var(--font-family-main);
-  font-size: 24px;
+  font-size: 17px;
   font-weight: var(--font-weight-normal);
 }
 

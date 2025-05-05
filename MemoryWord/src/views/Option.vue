@@ -1,14 +1,14 @@
 <template>
-    <div class="option-bar" :class="[type]">
+    <div class="option-bar" :class="[currentTheme]">
         <!-- 标题区域：节号 -->
         <div class="section-title">
             <img src="@/components/components-option-icons/prev-icon-light.svg" alt="上一节" class="nav-arrow prev-arrow"
-                v-if="type === 'dark'" @click="handlePrevSection">
+                v-if="currentTheme === 'dark'" @click="handlePrevSection">
             <img src="@/components/components-option-icons/prev-icon-dark.svg" alt="上一节" class="nav-arrow prev-arrow" v-else
                 @click="handlePrevSection">
             <span class="section-text">第 {{ sectionNumber }} 节</span>
             <img src="@/components/components-option-icons/next-icon-light.svg" alt="下一节" class="nav-arrow next-arrow"
-                v-if="type === 'dark'" @click="handleNextSection">
+                v-if="currentTheme === 'dark'" @click="handleNextSection">
             <img src="@/components/components-option-icons/next-icon-dark.svg" alt="下一节" class="nav-arrow next-arrow" v-else
                 @click="handleNextSection">
         </div>
@@ -22,35 +22,35 @@
         <!-- 选项区域 -->
         <div class="option-item">
             <span class="option-label">自动打乱：</span>
-            <bingo :type="type" :onBingo="options.shuffle ? 'true' : 'false'" @click="toggleOption('shuffle')" />
+            <bingo :type="currentTheme" :onBingo="options.shuffle ? 'true' : 'false'" @click="toggleOption('shuffle')" />
         </div>
 
         <div class="option-item">
             <span class="option-label">自动发音：</span>
-            <bingo :type="type" :onBingo="options.autoPlay ? 'true' : 'false'" @click="toggleOption('autoPlay')" />
+            <bingo :type="currentTheme" :onBingo="options.autoPlay ? 'true' : 'false'" @click="toggleOption('autoPlay')" />
         </div>
 
         <div class="option-item">
             <span class="option-label">显示音标：</span>
-            <bingo :type="type" :onBingo="options.showPhonetic ? 'true' : 'false'"
+            <bingo :type="currentTheme" :onBingo="options.showPhonetic ? 'true' : 'false'"
                 @click="toggleOption('showPhonetic')" />
         </div>
 
         <div class="option-item">
             <span class="option-label">纳入统计：</span>
-            <bingo :type="type" :onBingo="options.includeStats ? 'true' : 'false'"
+            <bingo :type="currentTheme" :onBingo="options.includeStats ? 'true' : 'false'"
                 @click="toggleOption('includeStats')" />
         </div>
 
         <div class="option-item">
             <span class="option-label">立刻纠错：</span>
-            <bingo :type="type" :onBingo="options.instantCorrection ? 'true' : 'false'"
+            <bingo :type="currentTheme" :onBingo="options.instantCorrection ? 'true' : 'false'"
                 @click="toggleOption('instantCorrection')" />
         </div>
 
         <!-- 按钮区域 -->
         <div class="button-group">
-            <Button :type="type === 'dark' ? 'dark' : 'light'" @click="handleCancel">取消</Button>
+            <Button :type="currentTheme === 'dark' ? 'light' : 'dark'" @click="handleCancel">取消</Button>
             <Button type="yellow" @click="handleConfirm">确定</Button>
         </div>
     </div>
@@ -58,11 +58,12 @@
 
 <script setup lang="ts">
 import { ref, defineProps, defineEmits } from 'vue';
+import { useRouter } from 'vue-router';
 import Bingo from '@/components/bingo/bingo.vue';
 import Button from '@/components/button/button.vue';
 
 interface Props {
-    type?: 'dark' | 'light';
+    currentTheme?: 'dark' | 'light';
     sectionNumber?: number;
     wordCount?: number;
     // 初始配置选项状态
@@ -77,7 +78,7 @@ interface Props {
 
 // 默认值
 const props = withDefaults(defineProps<Props>(), {
-    type: 'dark',
+    currentTheme: 'dark',
     sectionNumber: 1,
     wordCount: 25,
     initialOptions: () => ({
@@ -101,6 +102,8 @@ const options = ref({
 // 事件发射
 const emit = defineEmits(['cancel', 'confirm', 'prev-section', 'next-section']);
 
+const router = useRouter()
+
 // 切换选项
 const toggleOption = (option: string) => {
     if (option === 'shuffle') options.value.shuffle = !options.value.shuffle;
@@ -112,10 +115,12 @@ const toggleOption = (option: string) => {
 
 // 处理按钮点击
 const handleCancel = () => {
+    router.push('/')  // TODO
     emit('cancel');
 };
 
 const handleConfirm = () => {
+    router.push('/Learn')  // TODO
     emit('confirm', options.value);
 };
 
@@ -208,4 +213,29 @@ const handleNextSection = () => {
     padding: 10px 0;
     margin-top: 10px;
 }
+
+.button-group button:hover {
+    transform: scale(1.05);
+}
+
+.option-bar {
+    transition: background-color 0.3s ease;
+}
+
+.nav-arrow {
+    transition: transform 0.3s ease;
+}
+
+.nav-arrow:hover {
+    transform: scale(1.1);
+}
+
+.option-item {
+    transition: opacity 0.3s ease;
+}
+
+.button-group button {
+    transition: all 0.15s ease;
+}
+
 </style>
