@@ -74,11 +74,11 @@ const props = withDefaults(defineProps<Props>(), {
   sectionNumber: 1,
   wordCount: 25,
   initialOptions: () => ({
-    shuffle: false,
-    autoPlay: false,
-    showPhonetic: false,
-    includeStats: false,
-    instantCorrection: false
+    shuffle: true,
+    autoPlay: true,
+    showPhonetic: true,
+    includeStats: true,
+    instantCorrection: true
   })
 });
 

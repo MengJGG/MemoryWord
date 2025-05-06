@@ -17,9 +17,14 @@ const routes = [
         component: () => import('@/views/Option.vue')
     },
     {
-        path: '/Test',
-        name: 'Test',
-        component: () => import('@/views/Test.vue')
+        path: '/Memory',
+        name: 'Memory',
+        component: () => import('@/views/Memory.vue')
+    },
+    {
+        path: '/Typing',
+        name: 'Typing',
+        component: () => import('@/views/Typing.vue')
     }
 ]
 

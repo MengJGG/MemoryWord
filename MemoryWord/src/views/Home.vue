@@ -71,7 +71,7 @@ const handleNavChange = (index: number) => {
       router.push('/Option') 
       break
     case 4:
-      router.push('/Option') 
+      router.push('/Typing') 
       break
     default:
       router.push('/')
@@ -101,7 +101,7 @@ const handleChangeBook = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8rem;
+  gap: 6rem;
 }
 
 .welcome-title {

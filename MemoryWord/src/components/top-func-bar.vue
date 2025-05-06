@@ -35,17 +35,21 @@
 <script setup lang="ts">
 
 import { defineProps, withDefaults, defineEmits } from 'vue';
+import { useRouter } from 'vue-router';
 import { ref } from 'vue';  
+import { getThemeFromCookie } from '@/api/index.ts';
 
-
+console.log('top-func-bar加载')
 const props = withDefaults(defineProps<{Theme?: string}>(), {
   Theme: () => {return 'dark'}
 })
 
-const currentTheme = ref<string>(props.Theme)
+const currentTheme = ref<string>(getThemeFromCookie())
 
+console.log('当前主题:', currentTheme.value)
 const emit = defineEmits<{(e: 'theme-change', theme: string): void}>()
 
+const router = useRouter()
 
 function handleAction(action: string) {
   switch (action) {
@@ -53,20 +57,22 @@ function handleAction(action: string) {
       // 切换主题
       const newTheme = currentTheme.value === 'dark' ? 'light' : 'dark'
       currentTheme.value = newTheme
+      // 保存到cookie
+      document.cookie = `theme=${newTheme};path=/`
+      localStorage.setItem('theme', newTheme)
       emit('theme-change', newTheme)
-      console.log("切换主题")
       break;
     case 'setting':
       // 跳转到设置页面
-      window.location.href = '/settings';
+      router.push('/Setting')
       break;
     case 'home':
       // 跳转到首页
-      window.location.href = '/';
+      router.push('/')
       break;
     case 'personal':
       // 跳转到个人中心
-      window.location.href = '/personal';
+      router.push('/Personal')
       break;
   }
 }

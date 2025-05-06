@@ -9,11 +9,29 @@ import { ref } from 'vue'
 
 const currentTheme = ref<string>('dark')  // 默认主题为暗色
 
+
+
 function toggleTheme(newTheme: string) {
+  // 保存到cookie
+  document.cookie = `theme=${newTheme}; path=/`;
   currentTheme.value = newTheme
 }
 
 
+function loadThemeFromCookie() {
+  // 从cookie中获取主题
+  const theme = document.cookie.split('; ').find(row => row.startsWith('theme='));
+  if (theme) {
+    const themeValue = theme.split('=')[1];
+    currentTheme.value = themeValue === 'dark' ? 'dark' : 'light';
+  } else {
+    // 如果没有设置cookie，则使用默认主题
+    currentTheme.value = 'dark';
+  }
+}
+
+loadThemeFromCookie();
+console.log("App.vue加载")
 </script>
 
 <template>

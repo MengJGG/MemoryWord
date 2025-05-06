@@ -120,10 +120,6 @@ const handleNavClick = (index: number) => {
   transform: translateY(-5px);
 }
 
-.nav-item-active {
-  box-shadow: var(--shadow-medium);
-}
-
 .nav-icon {
   width: 24px;
   height: 24px;
