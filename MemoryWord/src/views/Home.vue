@@ -59,19 +59,29 @@ const handleNavChange = (index: number) => {
   console.log('导航切换到:', index);
   switch(index) {
     case 0:
-      router.push('/Option')
+      router.push({
+        name: 'Learn'
+      })
       break
     case 1:
-      router.push('/Option' ) 
+      router.push({
+        name: 'Test',
+      }) 
       break
     case 2:
-      router.push('/Test') 
+      router.push({
+        name: 'Memory',
+      })  
       break
     case 3:
-      router.push('/Option') 
+      router.push({
+        name: 'Test',
+      }) 
       break
     case 4:
-      router.push('/Typing') 
+      router.push({
+        name: 'Typing',
+      })  
       break
     default:
       router.push('/')

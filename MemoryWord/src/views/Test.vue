@@ -6,27 +6,15 @@
         <IndexBar :currentIndex="currentIndex" :totalWords="totalCount" :currentTheme="currentTheme" />
       </div>
       <!-- 词义部分 -->
-      <div class="definitions-section">
-        <div class="definition-item" v-for="(def, index) in definitions" :key="index">
-          <span class="part-of-speech">{{ def.pos }}</span>
-          <span class="definition-text">{{ def.definition }}</span>
-        </div>
-      </div>
+      <Definitions :definitions="definitions" :currentTheme="currentTheme" />
       <!-- 发音部分 -->
-      <div class="pronunciation-section"> 
-        <img 
-          :src="`src/components/icons/base/${currentTheme === 'dark' ? 'dark' : 'light'}/speaker.svg`"
-          alt="播放发音" class="speaker-icon"
-        />
-      </div>
+      <Pronunciation :currentTheme="currentTheme" :isTest="true" />
       <div class="word-container">
         <!-- 用户输入的单词 -->
         <h1 class="user-word word">{{ word }}</h1>
         <!-- 正确的单词 -->
         <h1 class="correct-word word">{{ word }}</h1>
       </div>
-      
-      
     </div>
     <!-- 功能按钮区 -->
     <div class="actions-section">
@@ -42,6 +30,8 @@
 
 <script lang="ts" setup>
 import IndexBar from '@/components/index-bar.vue';
+import Definitions from '@/components/definitions.vue';
+import Pronunciation from '@/components/pronunciation.vue';
 import { withDefaults, defineProps } from 'vue';
 
 interface Definition {
@@ -79,22 +69,21 @@ function summitTest() {
 
 <style scoped>
 .test-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24.5px;
-  padding: 28px 49px;
-  width: 615px;
-  min-height: 823px;
-  height: auto;
-  position: relative;
-  border-radius: 21px;
-  background-color: var(--color-theme-dark);
-  box-shadow: var(--shadow-box);
-  color: var(--color-text-light);
-  transition: all 0.3s ease;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 49px;
+    width: 615px;
+    min-height: calc(100vh - 135px); /* Adjusted to account for top container */
+    
+    position: relative;
+    border-radius: 21px;
+    background-color: var(--color-theme-dark);
+    box-shadow: var(--shadow-box);
+    color: var(--color-text-light);
+    transition: all 0.3s ease;
+    margin: 0 auto;
 }
 
 .light-theme {

@@ -25,6 +25,15 @@ const routes = [
         path: '/Typing',
         name: 'Typing',
         component: () => import('@/views/Typing.vue')
+    },
+    {
+        path: '/Test',
+        name: 'Test',
+        component: () => import('@/views/Test.vue')
+    },
+    {
+        path: '/',
+        redirect: '/Home'
     }
 ]
 

@@ -15,4 +15,16 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+    proxy: {
+      '/youdao-audio': {
+        target: 'https://dict.youdao.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/youdao-audio/, '')
+      }
+    }
+  },  
+  build: {
+    sourcemap: false
+  }
 })

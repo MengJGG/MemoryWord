@@ -7,34 +7,10 @@
     </div>
 
     <!-- 发音部分 -->
-    <div class="pronunciation-section">
-      <div class="pronunciation-item">
-        <span class="phonetic">英{{ ukPhonetic }}</span>
-        <div class="sound-icon" @click="playUkPronunciation">
-          <img 
-            :src="`src/components/icons/base/${currentTheme === 'dark' ? 'dark' : 'light'}/speaker.svg`"
-            alt="播放英式发音" 
-          />
-        </div>
-      </div>
-      <div class="pronunciation-item">
-        <span class="phonetic">美{{ usPhonetic }}</span>
-        <div class="sound-icon" @click="playUsPronunciation">
-          <img 
-            :src="`src/components/icons/base/${currentTheme === 'dark' ? 'dark' : 'light'}/speaker.svg`"
-            alt="播放美式发音" 
-          />
-        </div>
-      </div>
-    </div>
+    <Pronunciation :ukPhonetic="ukPhonetic" :usPhonetic="usPhonetic" :currentTheme="currentTheme" />
 
     <!-- 词义部分 -->
-    <div class="definitions-section">
-      <div class="definition-item" v-for="(def, index) in definitions" :key="index">
-        <span class="part-of-speech">{{ def.pos }}</span>
-        <span class="definition-text">{{ def.definition }}</span>
-      </div>
-    </div>
+    <Definitions :definitions="definitions" :currentTheme="currentTheme" />
 
     <!-- 例句部分 -->
     <div class="examples-section">
@@ -92,6 +68,9 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue';
 import IndexBar from '@/components/index-bar.vue'
+import Pronunciation from '@/components/pronunciation.vue'
+import Definitions from '@/components/definitions.vue'
+import { playPronunciation } from '@/api/index.ts'; // 假设你有这个API来播放发音
 
 interface Definition {
   pos: string;       // 词性
@@ -112,7 +91,7 @@ interface Props {
   currentTheme?: 'dark' | 'light';  // 主题类型
   word?: string;            // 单词
   currentIndex?: number;    // 当前索引
-  totalWords?: number;      // 总单词数
+  totalWords?: number;      // 总单词数`
   ukPhonetic?: string;      // 英式音标
   usPhonetic?: string;      // 美式音标
   definitions?: Definition[]; // 词义列表
@@ -164,19 +143,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 // 是否收藏
-const isFavorite = ref(props.isFavorite);
-
-// 播放英式发音
-const playUkPronunciation = () => {
-  // 实际应用中可能会调用音频API播放发音
-  console.log('播放英式发音：', props.word);
-};
-
-// 播放美式发音
-const playUsPronunciation = () => {
-  // 实际应用中可能会调用音频API播放发音
-  console.log('播放美式发音：', props.word);
-};
+const isFavorite = ref(props.isFavorite)
 
 // 切换收藏状态
 const toggleFavorite = () => {
@@ -238,70 +205,8 @@ const searchWord = () => {
   opacity: 0.85;
 }
 
-/* 发音部分 */
-.pronunciation-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 26px;
-  padding: 6px 22px;
-  width: 100%;
-}
 
-.pronunciation-item {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-}
 
-.phonetic {
-  font-family: var(--font-family-main);
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.sound-icon {
-  cursor: pointer;
-  width: 17px;
-  height: 17px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 词义部分 */
-.definitions-section {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 7px;
-}
-
-.definition-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 3.5px;
-  padding: 1.4px 5.6px;
-  width: 100%;
-}
-
-.part-of-speech {
-  font-family: var(--font-family-main);
-  font-size: 14px;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-orange);
-}
-
-.definition-text {
-  font-family: var(--font-family-main);
-  font-size: 19px;
-  font-weight: var(--font-weight-bold);
-}
 
 /* 例句部分 */
 .examples-section {

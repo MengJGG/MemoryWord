@@ -59,8 +59,11 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  height: 100%;
+  
   padding: 34px 70px;
   gap: 0px;
+  box-sizing: border-box;
 }
 
 .dark {

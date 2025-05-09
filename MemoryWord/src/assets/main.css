@@ -1,3 +1,6 @@
 @import './base.css';
 
 /* 全局样式可以在这里添加 */
+.hide {
+    display: none;
+}

@@ -11,33 +11,9 @@
                     <h1 class="user-type word">{{ word }}</h1>
                 </div>
                 <!-- 发音部分 -->
-                <div class="pronunciation-section">
-                    <div class="pronunciation-item">
-                        <span class="phonetic">英{{ ukPhonetic }}</span>
-                        <div class="sound-icon" @click="playUkPronunciation()">
-                            <img 
-                                :src="`src/components/icons/base/${currentTheme === 'dark' ? 'dark' : 'light'}/speaker.svg`"
-                                alt="播放英式发音" 
-                            />
-                        </div>
-                    </div>
-                    <div class="pronunciation-item">
-                        <span class="phonetic">美{{ usPhonetic }}</span>
-                        <div class="sound-icon" @click="playUsPronunciation()">
-                            <img 
-                                :src="`src/components/icons/base/${currentTheme === 'dark' ? 'dark' : 'light'}/speaker.svg`"
-                                alt="播放美式发音" 
-                            />
-                        </div>
-                    </div>
-                </div>
+                <Pronunciation :ukPhonetic="ukPhonetic" :usPhonetic="usPhonetic" :currentTheme="currentTheme" />
                 <!-- 词义部分 -->
-                <div class="definitions-section">
-                    <div class="definition-item" v-for="(def, index) in definitions" :key="index">
-                        <span class="part-of-speech">{{ def.pos }}</span>
-                        <span class="definition-text">{{ def.definition }}</span>
-                    </div>
-                </div>
+                <Definitions :definitions="definitions" :currentTheme="currentTheme" />
             </div>
         </div>
         <!-- 其他功能 -->
@@ -46,8 +22,11 @@
 
 <script lang="ts" setup>
 import IndexBar from '@/components/index-bar.vue';
+import Pronunciation from '@/components/pronunciation.vue';
+import Definitions from '@/components/definitions.vue';
 import { withDefaults, defineProps } from 'vue';
-import { playUkPronunciation, playUsPronunciation } from '@/api/index.ts'; // 假设你有这个API来播放发音
+import { playPronunciation } from '@/api/index.ts'; // 假设你有这个API来播放发音
+
 
 interface Definition {
   pos: string;       // 词性
