@@ -57,27 +57,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, defineEmits } from 'vue';
+import { ref, defineProps, defineEmits, toRaw } from 'vue';
 import { useRouter } from 'vue-router';
 import Bingo from '@/components/bingo/bingo.vue';
 import Button from '@/components/button/button.vue';
 
 interface Props {
+    from: 'Learn' | 'Memory' | 'Typing' | 'Test';
     currentTheme?: 'dark' | 'light';
     sectionNumber?: number;
     wordCount?: number;
     // 初始配置选项状态
     initialOptions?: {
-        shuffle?: boolean;
-        autoPlay?: boolean;
-        showPhonetic?: boolean;
-        includeStats?: boolean;
-        instantCorrection?: boolean;
+        shuffle?: boolean;  // 是否自动打乱
+        autoPlay?: boolean;  // 是否自动发音
+        showPhonetic?: boolean;  // 是否显示音标
+        includeStats?: boolean;  // 是否纳入统计
+        instantCorrection?: boolean;  // 是否立刻纠错
     };
 }
 
 // 默认值
 const props = withDefaults(defineProps<Props>(), {
+    from: 'Learn',
     currentTheme: 'dark',
     sectionNumber: 1,
     wordCount: 25,
@@ -119,9 +121,10 @@ const handleCancel = () => {
     emit('cancel');
 };
 
+// 确认按钮点击
 const handleConfirm = () => {
-    router.push('/Learn')  // TODO
-    emit('confirm', options.value);
+    router.replace({ path: '/Test', query: { options: toRaw(JSON.stringify(options.value)) } })  // TODO
+    //emit('confirm', options.value);
 };
 
 // 处理上下节切换

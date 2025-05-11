@@ -72,7 +72,7 @@ function handleAction(action: string) {
       break;
     case 'personal':
       // 跳转到个人中心
-      router.push('/Personal')
+      router.push('/User')
       break;
   }
 }

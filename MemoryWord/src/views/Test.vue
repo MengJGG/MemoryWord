@@ -32,7 +32,16 @@
 import IndexBar from '@/components/index-bar.vue';
 import Definitions from '@/components/definitions.vue';
 import Pronunciation from '@/components/pronunciation.vue';
-import { withDefaults, defineProps } from 'vue';
+import { withDefaults, defineProps, toRaw } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const {options} = route.query;
+
+
+const op = JSON.parse(String(options));
+
+
 
 interface Definition {
   pos: string;       // 词性
@@ -65,6 +74,18 @@ function getWordCue() {
 function summitTest() {
   console.log('submit test');
 }
+
+// 在此处测试获取JSON的API
+import { getJSON } from '@/api/index.ts';
+
+const jsonDate = getJSON('public/vocabulary/GET4/Get4_1.json')
+console.log('dddddd',jsonDate);
+
+
+
+
+
+
 </script>
 
 <style scoped>

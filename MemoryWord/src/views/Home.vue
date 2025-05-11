@@ -65,7 +65,7 @@ const handleNavChange = (index: number) => {
       break
     case 1:
       router.push({
-        name: 'Test',
+        name: 'Option',
       }) 
       break
     case 2:
@@ -108,6 +108,7 @@ const handleChangeBook = () => {
 .content-section {
   flex: 1;
   padding: 20px;
+  padding-top: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;

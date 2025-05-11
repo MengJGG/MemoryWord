@@ -55,3 +55,23 @@ export function setUseWord(word: string) {
 export function setFavoriteWord(word: string) {
 
 }
+
+
+export async function getJSON(src: string) {
+    try {
+        const response = await axios.get(src);
+        return response.data;
+    } catch (error) {
+        console.error("获取JSON数据失败:", error);
+        return null;
+    }
+}
+
+export function checkLogin() {
+    // 
+}
+
+// 获取用户信息，包括用户名，学习进度，收藏单词，不常用单词。
+export function getUserInfo() {
+    
+}
