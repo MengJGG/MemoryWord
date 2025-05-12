@@ -73,6 +73,9 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { submitNewUser } from '@/api';
+import { nanoid } from 'nanoid';
+import axios from 'axios';
 
 interface Props {
   currentTheme?: 'dark' | 'light';
@@ -166,19 +169,63 @@ async function handleRegister() {
   }
 
   try {
-    // TODO: 实现注册逻辑
-    console.log('注册信息', {
+    // 创建 AES 密钥
+    const key = crypto.getRandomValues(new Uint8Array(16));
+    // 创建初始化向量
+    const iv = crypto.getRandomValues(new Uint8Array(16));
+
+    // 转换密钥和初始化向量为 CryptoKey
+    const cryptoKey = await crypto.subtle.importKey(
+      'raw',
+      key,
+      'AES-CBC',
+      false,
+      ['encrypt']
+    );
+
+    // 将密码转换为 Uint8Array
+    const encoder = new TextEncoder();
+    const passwordData = encoder.encode(password.value);
+
+    // 加密密码
+    const encryptedPassword = await crypto.subtle.encrypt(
+      {
+        name: 'AES-CBC',
+        iv: iv
+      },
+      cryptoKey,
+      passwordData
+    );
+
+    // 将加密后的数据转换为 base64 字符串
+    const encryptedBase64_password = btoa(String.fromCharCode(...new Uint8Array(encryptedPassword)));
+    console.log('加密后的密码:', encryptedBase64_password);
+
+    // 用户注册信息
+    const userData = {
       username: username.value,
+      encryptedPassword: encryptedBase64_password,
       email: email.value,
-      password: password.value
-    });
+      permission: "user",
+    };
+
+    // 调用 API 提交注册信息
+    const response = await axios.post('@/views/User/users', userData);
     
+    if (response.status !== 200) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const result = response.data;
+    console.log('注册成功:', result);
+
     // 注册成功后跳转到登录页
     router.push({ name: 'Login' });
   } catch (error) {
     console.error('注册失败:', error);
   }
 }
+
 
 // 页面跳转
 function goToLogin() {
