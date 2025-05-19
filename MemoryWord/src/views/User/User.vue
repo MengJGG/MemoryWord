@@ -25,11 +25,11 @@ const props = withDefaults(defineProps<Props>(), {
 const router = useRouter();
 
 function goToLogin() {
-    router.push('/login');
+    router.push('/Login');
 }
 
 function goToRegister() {
-    router.push('/register');
+    router.push('/Register');
 }
 </script>
 

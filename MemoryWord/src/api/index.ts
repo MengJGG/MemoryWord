@@ -4,6 +4,11 @@ import { ref, reactive } from 'vue';
 
 import type { User }  from '@/types'
 
+// 创建axios实例
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
+});
+
 export function getThemeFromCookie() {
     const cookies = document.cookie.split(';');
     for (const cookie of cookies) {
@@ -77,31 +82,4 @@ export function checkLogin() {
 // 获取用户信息，包括用户名，学习进度，收藏单词，不常用单词。
 export function getUserInfo() {
     
-}
-
-// 提交新用户信息
-export async function submitNewUser(username: string, encryptedPassword: string, email: string) {
-    const shortId = nanoid(8);  // 生成一个8位的随机id
-    const newUser: User = {
-        id: shortId,
-        username: username,
-        encryptedPassword: encryptedPassword, // 加密后的密码
-        email: email, // 邮箱
-        permission: "user", // 权限 // admin, user, vip, guest
-        // 学习信息
-        favoriteWords: [], // 收藏的单词  // 保存的单词id
-        uselessWords: [], // 不常用的单词
-        wrongWords: [], // 错误的单词
-        LearningTime: 1, // 已经学习时间
-        // 其他信息
-        createTime: new Date().getTime() // 创建时间
-    }
-    // try {
-    //     const response = await axios.post('/api/users', newUser);
-    //     console.log('User created successfully:', response.data);
-    //     return response.data;
-    // } catch (error) {
-    //     console.error('Error creating user:', error);
-    //     return null;
-    // }
 }

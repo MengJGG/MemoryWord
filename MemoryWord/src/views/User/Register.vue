@@ -6,41 +6,37 @@
       <div class="card-title">
         <h1 class="title-text">注册</h1>
       </div>
-      
+
       <!-- 用户名输入区 -->
       <div class="input-section">
         <div class="input-label" :class="{ 'error-label': errors.username }">
           用户名 {{ errors.username ? `(${errors.username})` : '' }}
         </div>
         <div class="input-field">
-          <input type="text" v-model="username" 
-                 :class="['input-box', { 'error-input': errors.username }]" 
-                 placeholder="请输入用户名"/>
+          <input type="text" v-model="username" :class="['input-box', { 'error-input': errors.username }]"
+            placeholder="请输入用户名" />
         </div>
       </div>
-      
+
       <!-- 邮箱输入区 -->
       <div class="input-section">
         <div class="input-label" :class="{ 'error-label': errors.email }">
           邮箱 {{ errors.email ? `(${errors.email})` : '' }}
         </div>
         <div class="input-field">
-          <input type="email" v-model="email" 
-                 :class="['input-box', { 'error-input': errors.email }]" 
-                 placeholder="请输入邮箱"/>
+          <input type="email" v-model="email" :class="['input-box', { 'error-input': errors.email }]"
+            placeholder="请输入邮箱" />
         </div>
       </div>
-      
+
       <!-- 密码输入区 -->
       <div class="input-section">
         <div class="input-label" :class="{ 'error-label': errors.password }">
           密码 {{ errors.password ? `(${errors.password})` : '' }}
         </div>
         <div class="input-field">
-          <input :type="showPassword ? 'text' : 'password'" 
-                 v-model="password" 
-                 :class="['input-box', { 'error-input': errors.password }]" 
-                 placeholder="请输入密码"/>
+          <input :type="showPassword ? 'text' : 'password'" v-model="password"
+            :class="['input-box', { 'error-input': errors.password }]" placeholder="请输入密码" />
         </div>
       </div>
 
@@ -50,18 +46,16 @@
           确认密码 {{ errors.confirmPassword ? `(${errors.confirmPassword})` : '' }}
         </div>
         <div class="input-field">
-          <input :type="showPassword ? 'text' : 'password'" 
-                 v-model="confirmPassword" 
-                 :class="['input-box', { 'error-input': errors.confirmPassword }]" 
-                 placeholder="请再次输入密码"/>
+          <input :type="showPassword ? 'text' : 'password'" v-model="confirmPassword"
+            :class="['input-box', { 'error-input': errors.confirmPassword }]" placeholder="请再次输入密码" />
         </div>
       </div>
-      
+
       <!-- 注册按钮 -->
       <div class="login-button" @click="handleRegister">
         <span class="button-text">注册</span>
       </div>
-      
+
       <!-- 底部链接 -->
       <div class="bottom-links">
         <div class="link-text" @click="goToLogin">返回登录</div>
@@ -73,9 +67,7 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { submitNewUser } from '@/api';
-import { nanoid } from 'nanoid';
-import axios from 'axios';
+import { registerNewUser } from './users';
 
 interface Props {
   currentTheme?: 'dark' | 'light';
@@ -206,26 +198,20 @@ async function handleRegister() {
       username: username.value,
       encryptedPassword: encryptedBase64_password,
       email: email.value,
-      permission: "user",
     };
 
     // 调用 API 提交注册信息
-    const response = await axios.post('@/views/User/users', userData);
-    
+    // const response = await axios.post('@/views/User/users', userData);
+    const response = await registerNewUser(userData);
     if (response.status !== 200) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    const result = response.data;
-    console.log('注册成功:', result);
-
     // 注册成功后跳转到登录页
     router.push({ name: 'Login' });
   } catch (error) {
-    console.error('注册失败:', error);
+    console.error('注册失败');
   }
 }
-
 
 // 页面跳转
 function goToLogin() {
@@ -235,11 +221,11 @@ function goToLogin() {
 
 <style scoped>
 .login-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-    transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  transition: all 0.3s ease;
 }
 
 .login-container {
@@ -304,8 +290,8 @@ function goToLogin() {
 }
 
 input {
-    text-align: center;
-    width: 100%;
+  text-align: center;
+  width: 100%;
 }
 
 .input-box {
@@ -406,7 +392,7 @@ input {
     width: 90%;
     padding: var(--spacing-medium);
   }
-  
+
   .title-text {
     font-size: var(--font-size-large);
   }
@@ -430,5 +416,4 @@ input {
 .error-input {
   border: 1px solid var(--color-background-red);
 }
-
 </style>
